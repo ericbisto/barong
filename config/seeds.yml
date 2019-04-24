@@ -1,6 +1,7 @@
 #
 # email and level are required for users
 #
+# permissions defines user roles and abilities
 users:
   - email: <%= ENV.fetch("ADMIN_EMAIL", "admin@barong.io") %>
     password: <%= ENV.fetch("ADMIN_PASSWORD", nil) %>
@@ -18,3 +19,39 @@ levels:
   - key: document
     value: verified
     description: "User personal documents have been verified"
+
+permissions:
+ # Barong user API: resource module
+ - { role: member, req_method: get, path: api/v2/barong/resource, action: accept, priority: 100 }
+ - { role: member, req_method: post, path: api/v2/barong/resource, action: accept, priority: 100 }
+ - { role: member, req_method: put, path: api/v2/barong/resource, action: accept, priority: 100 }
+ - { role: member, req_method: delete, path: api/v2/barong/resource, action: accept, priority: 100 }
+
+ - { role: admin, req_method: get, path: api/v2/barong/resource, action: accept, priority: 99 }
+ - { role: admin, req_method: post, path: api/v2/barong/resource, action: accept, priority: 99 }
+ - { role: admin, req_method: put, path: api/v2/barong/resource, action: accept, priority: 99 }
+ - { role: admin, req_method: delete, path: api/v2/barong/resource, action: accept, priority: 99 }
+
+ # Peatio user API: account module
+ - { role: member, req_method: get, path: api/v2/peatio/account, action: accept, priority: 200 }
+ - { role: member, req_method: post, path: api/v2/peatio/account, action: accept, priority: 200 }
+ - { role: member, req_method: put, path: api/v2/peatio/account, action: accept, priority: 200 }
+ - { role: member, req_method: delete, path: api/v2/peatio/account, action: accept, priority: 200 }
+
+ - { role: admin, req_method: get, path: api/v2/peatio/account, action: accept, priority: 199 }
+ - { role: admin, req_method: post, path: api/v2/peatio/account, action: accept, priority: 199 }
+ - { role: admin, req_method: put, path: api/v2/peatio/account, action: accept, priority: 199 }
+ - { role: admin, req_method: delete, path: api/v2/peatio/account, action: accept, priority: 199 }
+
+ # Barong admin API: admin module
+ - { role: admin, req_method: get, path: api/v2/barong/admin, action: accept, priority: 98 }
+ - { role: admin, req_method: post, path: api/v2/barong/admin, action: accept, priority: 98 }
+ - { role: admin, req_method: put, path: api/v2/barong/admin, action: accept, priority: 98 }
+ - { role: admin, req_method: delete, path: api/v2/barong/admin, action: accept, priority: 98 }
+
+ # Peatio admin API: admin module
+ - { role: admin, req_method: get, path: admin, action: accept, priority: 198 }
+ - { role: admin, req_method: post, path: admin, action: accept, priority: 198 }
+ - { role: admin, req_method: put, path: admin, action: accept, priority: 198 }
+ - { role: admin, req_method: delete, path: admin, action: accept, priority: 198 }
+
