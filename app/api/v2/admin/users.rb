@@ -101,6 +101,21 @@ module API
           end
 
           namespace :labels do
+            desc 'Returns existing labels keys and values',
+            security: [{ "BearerToken": [] }],
+            failure: [
+              { code: 401, message: 'Invalid bearer token' }
+            ]
+            params do
+            end
+            get '/list' do
+              labels = Label.where(scope: 'private').pluck(:key, :value)
+
+              present labels
+
+              status 200
+            end
+
             desc 'Returns array of users as paginated collection',
             security: [{ "BearerToken": [] }],
             failure: [
