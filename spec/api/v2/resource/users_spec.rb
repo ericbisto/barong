@@ -15,8 +15,15 @@ describe 'Api::V1::Profiles' do
       expect(json_body[:email]).to eq(test_user.email)
       expect(response.status).to eq(200)
     end
+    let!(:profile) do
+      create :profile, user: test_user
+    end
+    let!(:phones) do
+      create :phone, user: test_user
+    end
 
     it 'returns user info' do
+
       get '/api/v2/resource/users/me/full_info', headers: auth_header
       result = JSON.parse(response.body)
       expect(response.status).to eq 200
